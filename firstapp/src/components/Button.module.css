@@ -1,0 +1,21 @@
+.main {
+    padding: 10px;
+    margin-bottom: 15px;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.main:hover {
+    cursor: pointer;
+}
+
+.isOn {
+    background-color: green;
+    padding: 10px;
+    border-style: solid;
+}
+
+.isOff {
+    padding: 10px;
+    border-style: solid;
+}
