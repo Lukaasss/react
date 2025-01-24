@@ -6,7 +6,7 @@ export default function PeopleContainer() {
     const [filteredPeople, setFilteredPeople] = useState([]);
 
     useEffect(() => {
-        fetch("https://678a0fd4dd587da7ac289f1d.mockapi.io/people").then(
+        fetch("https://657869f6f08799dc80453ea2.mockapi.io/persondata").then(
             (res) => res.json()).then((data) => {
                 setPeople(data);
                 setFilteredPeople(data);
@@ -14,7 +14,7 @@ export default function PeopleContainer() {
     }, []);
 
     const filterPeople = (filter) => {
-        let filtered = people.filter(people => people.name.toLowerCase().includes(filter.toLowerCase()));
+        let filtered = people.filter((people) => people.name.toLowerCase().includes(filter.toLowerCase()));
         setFilteredPeople(filtered);
     }
 
