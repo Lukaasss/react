@@ -15,8 +15,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
                 <span
                     key={i}
                     onClick={() => onPageChange(i)}
-                    className={`mx-1 px-3 py-1 cursor-pointer ${i === currentPage ? "font-bold" : ""
-                        }`}
+                    className={`mx-1 px-3 py-1 cursor-pointer ${i === currentPage ? "font-bold" : ""}`}
                 >
                     {i}
                 </span>
@@ -26,15 +25,20 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
     };
 
     return (
-        <div className="text-center py-4">
+        <div className="text-center py-4 flex justify-center mt-auto">
             <span
                 onClick={() => onPageChange(Math.max(1, currentPage - 1))}
-                className={`mx-1 px-3 py-1 cursor-pointer ${currentPage === 1 ? "invisible" : "visible"
-                    }`}
+                className={`mx-1 px-3 py-1 cursor-pointer ${currentPage === 1 ? "invisible" : "visible"}`}
             >
                 ←
             </span>
-            { }
+            {getPageNumbers()}
+            <span
+                onClick={() => onPageChange(Math.min(totalPages, currentPage + 1))}
+                className={`mx-1 px-3 py-1 cursor-pointer ${currentPage === totalPages ? "invisible" : "visible"}`}
+            >
+                →
+            </span>
         </div>
     );
 };
