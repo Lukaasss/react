@@ -37,7 +37,13 @@ const MovieDetails = () => {
             >
                 X
             </button>
-            { }
+            <div className="text-center">
+                <h1 className="text-2xl font-bold">{movie.Title}</h1>
+                <img src={movie.Poster} alt={movie.Title} className="my-4 w-64" />
+                <p>{movie.Plot}</p>
+                <p><strong>Genre:</strong> {movie.Genre}</p>
+                <p><strong>Bewertung:</strong> {movie.imdbRating}</p>
+            </div>
         </div>
     );
 };

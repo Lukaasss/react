@@ -43,24 +43,26 @@ const App = () => {
           }}
           onPopularMovies={() => setSearchTerm("action")}
         />
-        {movies.length > 0 ? (
-          <div className="flex flex-col flex-grow justify-between h-full">
-            <MovieGrid movies={movies} />
-            <div className="bg-black flex justify-center items-center h-16">
-              <Pagination
-                currentPage={currentPage}
-                totalPages={totalPages}
-                onPageChange={setCurrentPage}
-              />
-            </div>
-          </div>
-        ) : (
-          <div className="text-center mt-8 text-gray-400">Keine Filme gefunden.</div>
-        )}
+        <Routes>
+          <Route path="/" element={
+            movies.length > 0 ? (
+              <div className="flex flex-col flex-grow justify-between h-full">
+                <MovieGrid movies={movies} />
+                <div className="bg-black flex justify-center items-center h-16">
+                  <Pagination
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                    onPageChange={setCurrentPage}
+                  />
+                </div>
+              </div>
+            ) : (
+              <div className="text-center mt-8 text-gray-400">Keine Filme gefunden.</div>
+            )
+          } />
+          <Route path="/info/:id" element={<MovieDetails />} />
+        </Routes>
       </div>
-      <Routes>
-        <Route path="/info/:id" element={<MovieDetails />} />
-      </Routes>
     </BrowserRouter>
   );
 };
