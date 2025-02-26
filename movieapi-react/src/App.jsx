@@ -44,9 +44,9 @@ const App = () => {
           onPopularMovies={() => setSearchTerm("action")}
         />
         {movies.length > 0 ? (
-          <div className="flex flex-col flex-grow justify-between">
+          <div className="flex flex-col flex-grow justify-between h-full">
             <MovieGrid movies={movies} />
-            <div className="bg-black">
+            <div className="bg-black flex justify-center items-center h-16">
               <Pagination
                 currentPage={currentPage}
                 totalPages={totalPages}
