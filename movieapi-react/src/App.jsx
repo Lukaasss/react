@@ -19,13 +19,15 @@ const App = () => {
       const data = await response.json();
       if (data.Response === "True" && data.Search) {
         setMovies(data.Search);
-        setTotalPages(Math.ceil(data.totalResults / 10));
+        setTotalPages(Math.max(1, Math.ceil(data.totalResults / 10)));
       } else {
         setMovies([]);
+        setTotalPages(1);
       }
     } catch (error) {
       console.error("Fehler beim Abrufen der Filme:", error);
       setMovies([]);
+      setTotalPages(1);
     }
   };
 
@@ -44,22 +46,27 @@ const App = () => {
           onPopularMovies={() => setSearchTerm("action")}
         />
         <Routes>
-          <Route path="/" element={
-            movies.length > 0 ? (
+          <Route
+            path="/"
+            element={
               <div className="flex flex-col flex-grow justify-between h-full">
-                <MovieGrid movies={movies} />
-                <div className="bg-black flex justify-center items-center h-16">
-                  <Pagination
-                    currentPage={currentPage}
-                    totalPages={totalPages}
-                    onPageChange={setCurrentPage}
-                  />
-                </div>
+                {movies.length > 0 ? (
+                  <>
+                    <MovieGrid
+                      movies={movies}
+                      currentPage={currentPage}
+                      totalPages={totalPages}
+                      onPageChange={setCurrentPage}
+                    />
+                  </>
+                ) : (
+                  <div className="text-center mt-8 text-gray-400">
+                    Keine Filme gefunden.
+                  </div>
+                )}
               </div>
-            ) : (
-              <div className="text-center mt-8 text-gray-400">Keine Filme gefunden.</div>
-            )
-          } />
+            }
+          />
           <Route path="/info/:id" element={<MovieDetails />} />
         </Routes>
       </div>
