@@ -10,6 +10,7 @@ const App = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [searchTerm, setSearchTerm] = useState("action");
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "dark");
 
   const fetchMovies = async (search, page = 1) => {
     try {
@@ -25,7 +26,7 @@ const App = () => {
         setTotalPages(1);
       }
     } catch (error) {
-      console.error("Fehler beim Abrufen der Filme:", error);
+      console.error("Error fetching movies:", error);
       setMovies([]);
       setTotalPages(1);
     }
@@ -35,15 +36,27 @@ const App = () => {
     fetchMovies(searchTerm, currentPage);
   }, [currentPage, searchTerm]);
 
+  useEffect(() => {
+    localStorage.setItem("theme", theme);
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+      document.documentElement.classList.remove("light");
+    } else {
+      document.documentElement.classList.add("light");
+      document.documentElement.classList.remove("dark");
+    }
+  }, [theme]);
+
   return (
     <BrowserRouter>
-      <div className="bg-black text-white flex flex-col h-screen w-screen overflow-hidden">
+      <div className={`${theme === "dark" ? "bg-black text-white" : "bg-white text-black"} flex flex-col h-screen w-screen overflow-hidden`}>
         <Header
           onSearch={(term) => {
             setSearchTerm(term);
             setCurrentPage(1);
           }}
           onPopularMovies={() => setSearchTerm("action")}
+          toggleTheme={() => setTheme(theme === "dark" ? "light" : "dark")}
         />
         <Routes>
           <Route
@@ -51,17 +64,15 @@ const App = () => {
             element={
               <div className="flex flex-col flex-grow justify-between h-full">
                 {movies.length > 0 ? (
-                  <>
-                    <MovieGrid
-                      movies={movies}
-                      currentPage={currentPage}
-                      totalPages={totalPages}
-                      onPageChange={setCurrentPage}
-                    />
-                  </>
+                  <MovieGrid
+                    movies={movies}
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                    onPageChange={setCurrentPage}
+                  />
                 ) : (
                   <div className="text-center mt-8 text-gray-400">
-                    Keine Filme gefunden.
+                    No movies found.
                   </div>
                 )}
               </div>

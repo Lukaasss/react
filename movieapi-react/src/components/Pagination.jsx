@@ -31,7 +31,13 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
                 className={`mx-1 px-3 py-1 cursor-pointer ${currentPage === 1 ? "hidden" : "block"}`}
             >
                 ←
-
+            </span>
+            {getPageNumbers()}
+            <span
+                onClick={() => onPageChange(Math.min(totalPages, currentPage + 1))}
+                className={`mx-1 px-3 py-1 cursor-pointer ${currentPage === totalPages ? "hidden" : "block"}`}
+            >
+                →
             </span>
         </div>
     );
