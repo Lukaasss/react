@@ -1,6 +1,7 @@
 import React from "react";
 
 const Pagination = ({ currentPage, totalPages, onPageChange }) => {
+    // Berechnet die anzuzeigenden Seitenzahlen
     const getPageNumbers = () => {
         const pages = [];
         let startPage = Math.max(1, currentPage - 3);
@@ -26,6 +27,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
 
     return (
         <div className="text-center py-2 flex justify-center mt-auto">
+            {/* Zurück-Button */}
             <span
                 onClick={() => onPageChange(Math.max(1, currentPage - 1))}
                 className={`mx-1 px-3 py-1 cursor-pointer ${currentPage === 1 ? "hidden" : "block"}`}
@@ -33,6 +35,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
                 ←
             </span>
             {getPageNumbers()}
+            {/* Weiter-Button */}
             <span
                 onClick={() => onPageChange(Math.min(totalPages, currentPage + 1))}
                 className={`mx-1 px-3 py-1 cursor-pointer ${currentPage === totalPages ? "hidden" : "block"}`}

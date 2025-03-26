@@ -6,12 +6,13 @@ import Pagination from "./components/Pagination";
 import MovieDetails from "./components/MovieDetails";
 
 const App = () => {
-  const [movies, setMovies] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const [searchTerm, setSearchTerm] = useState("action");
-  const [theme, setTheme] = useState(localStorage.getItem("theme") || "dark");
+  const [movies, setMovies] = useState([]); // Zustand für die Filmliste
+  const [currentPage, setCurrentPage] = useState(1); // Aktuelle Seite
+  const [totalPages, setTotalPages] = useState(1); // Gesamtanzahl der Seiten
+  const [searchTerm, setSearchTerm] = useState("action"); // Suchbegriff
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "dark"); // Theme-Zustand
 
+  // Funktion zum Abrufen von Filmen aus der API
   const fetchMovies = async (search, page = 1) => {
     try {
       const response = await fetch(
@@ -32,10 +33,12 @@ const App = () => {
     }
   };
 
+  // Ruft die Filme auf, wenn sich die Seite oder der Suchbegriff ändert
   useEffect(() => {
     fetchMovies(searchTerm, currentPage);
   }, [currentPage, searchTerm]);
 
+  // Speichert das gewählte Theme in localStorage und setzt das Klassenattribut entsprechend
   useEffect(() => {
     localStorage.setItem("theme", theme);
     if (theme === "dark") {
@@ -50,6 +53,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <div className={`${theme === "dark" ? "bg-black text-white" : "bg-white text-black"} flex flex-col h-screen w-screen overflow-hidden`}>
+        {/* Header-Komponente mit Such- und Theme-Umschaltfunktion */}
         <Header
           onSearch={(term) => {
             setSearchTerm(term);
@@ -59,6 +63,7 @@ const App = () => {
           toggleTheme={() => setTheme(theme === "dark" ? "light" : "dark")}
         />
         <Routes>
+          {/* Startseite mit Filmübersicht */}
           <Route
             path="/"
             element={
@@ -72,12 +77,13 @@ const App = () => {
                   />
                 ) : (
                   <div className="text-center mt-8 text-gray-400">
-                    No movies found.
+                    No movies found. If the film should exist please check your internet connection
                   </div>
                 )}
               </div>
             }
           />
+          {/* Detailansicht für einen Film */}
           <Route path="/info/:id" element={<MovieDetails />} />
         </Routes>
       </div>
