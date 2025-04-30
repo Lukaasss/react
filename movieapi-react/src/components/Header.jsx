@@ -16,11 +16,11 @@ const Header = ({ onSearch, onPopularMovies, toggleTheme }) => {
     };
 
     return (
-        <div className="border-b border-gray-700 bg-gray-900 w-full h-28 p-8 flex items-center justify-between">
+        <div className="border-b border-gray-700 bg-gray-900 w-full h-28 p-8 flex items-center justify-between"> {/*kleiner Rand*/}
             <img src={logo} alt="Logo" className="w-20" />
             <button
                 onClick={handlePopularMovies} // Verwende die angepasste Funktion
-                className="bg-gray-700 text-white px-4 py-2 rounded"
+                className="bg-gray-700 text-white px-4 py-2 rounded" //Beliebte Filme
             >
                 Beliebte Filme
             </button>
@@ -30,11 +30,11 @@ const Header = ({ onSearch, onPopularMovies, toggleTheme }) => {
                 onChange={(e) => setSearchTerm(e.target.value)}
                 onKeyPress={(e) => e.key === "Enter" && handleSearch()}
                 placeholder="Suchen"
-                className="border p-4 bg-gray-700 text-white rounded"
+                className="border p-4 bg-gray-700 text-white rounded" //suche feld
             />
             <button
                 onClick={toggleTheme}
-                className="bg-gray-700 text-white px-4 py-2 rounded"
+                className="bg-gray-700 text-white px-4 py-2 rounded" //dark/white mode
             >
                 🌙/☀️
             </button>
