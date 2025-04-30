@@ -8,7 +8,6 @@ dotenv.config();
 const app = express();
 const port = 3000;
 
-// MySQL-Verbindung
 const db = mysql.createConnection({
     host: process.env.DB_HOST,
     port: process.env.DB_PORT,
@@ -27,7 +26,6 @@ db.connect((err) => {
 
 app.use(express.json());
 
-// AJV Schema
 const ajv = new Ajv();
 const personSchema = {
     type: "object",
@@ -45,7 +43,6 @@ const personSchema = {
 };
 const validatePerson = ajv.compile(personSchema);
 
-// POST /person mit AJV-Validierung
 app.post("/person", (req, res) => {
     const isValid = validatePerson(req.body);
 
@@ -72,7 +69,6 @@ app.post("/person", (req, res) => {
     });
 });
 
-// Start
 app.listen(port, () => {
     console.log(`Server läuft unter http://localhost:${port}`);
     console.log("läuft");
